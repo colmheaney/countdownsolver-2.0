@@ -1,26 +1,31 @@
-// let startLoadDictionary = performance.now();
 let root = dictionary(words());
-// let endLoadDictionary = performance.now();
-
-// console.log("Time to load dictionary: ", endLoadDictionary - startLoadDictionary);
 
 function solveForLetters(letters) {
     let lettersArray = letters.split('');
-    return _solveForLetters(root, lettersArray, "", 0, []);
+    return _solveForLetters(root, letters, "", {}, []);
 }
 
-function _solveForLetters(node, letters, word, index, validWords) {
+function _solveForLetters(node, letters, word, alreadySeenInBranch, validWords) {
     if(node[0])
         validWords.push(word)
 
-    for(let i = index; i < letters.length; i++) {
-        let c = letters[i];
+    if(letters.length == word.length)
+        return;
 
-        if(!node[c])
+    let alreadySeenInIteration = {}
+
+    for(let i = 0; i < letters.length; i++) {
+        let c = letters.charAt(i);
+
+        if(alreadySeenInBranch[i] || alreadySeenInIteration[c])
             continue;
             
-        word += c;
-        _solveForLetters(node[c], letters, word, ++index, validWords);    
+        if(node[c]) {
+            alreadySeenInIteration[c] = 1;
+            alreadySeenInBranch[i] = 1;
+            _solveForLetters(node[c], letters, word+c, alreadySeenInBranch, validWords);    
+            alreadySeenInBranch[i] = 0;
+        }
     }
     return validWords;
 }
