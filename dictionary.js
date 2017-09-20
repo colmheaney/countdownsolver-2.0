@@ -1,5 +1,5 @@
 function dictionary(words) {
-    let root = {};
+    const root = {};
 
     words.map(function(word) {
         put(word);
