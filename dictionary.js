@@ -6,11 +6,11 @@ function dictionary(words) {
     });
 
     function put(word) {
-        _put(root, word.split(''), 0, 1);
+        _put(root, word, 0, 1);
     }
 
     function _put(node, word, i, d) {
-        let c = word[i];
+        const c = word.charAt(i);
         if(!node[c])
             node[c] = {}
 
@@ -21,6 +21,5 @@ function dictionary(words) {
 
         _put(node[c], word, ++i, ++d);
     }
-    
     return root;
 }

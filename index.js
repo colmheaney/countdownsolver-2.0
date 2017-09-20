@@ -1,7 +1,6 @@
-let root = dictionary(words());
+const root = dictionary(words);
 
 function solveForLetters(letters) {
-    let lettersArray = letters.split('');
     return _solveForLetters(root, letters, "", {}, []);
 }
 
@@ -12,19 +11,19 @@ function _solveForLetters(node, letters, word, alreadySeenInBranch, validWords) 
     if(letters.length == word.length)
         return;
 
-    let alreadySeenInIteration = {}
+    const alreadySeenInIteration = {}
 
     for(let i = 0; i < letters.length; i++) {
-        let c = letters.charAt(i);
+        const c = letters.charAt(i);
 
         if(alreadySeenInBranch[i] || alreadySeenInIteration[c])
             continue;
             
         if(node[c]) {
-            alreadySeenInIteration[c] = 1;
-            alreadySeenInBranch[i] = 1;
+            alreadySeenInIteration[c] = true;
+            alreadySeenInBranch[i] = true;
             _solveForLetters(node[c], letters, word+c, alreadySeenInBranch, validWords);    
-            alreadySeenInBranch[i] = 0;
+            alreadySeenInBranch[i] = false;
         }
     }
     return validWords;

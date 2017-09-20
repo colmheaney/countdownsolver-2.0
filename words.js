@@ -1,5 +1,4 @@
-var words = function() {
-  return [
+const words = [
     "a",
     "aaa",
     "aaas",
@@ -143092,4 +143091,3 @@ var words = function() {
 "zygotes",
 "zymurgy"
 ];
-}
